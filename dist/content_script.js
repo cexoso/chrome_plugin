@@ -71,11 +71,66 @@ require = (function (modules, cache, entry) {
 
   // Override the current require with this new one
   return newRequire;
-})({1:[function(require,module,exports) {
-document.addEventListener('DOMContentLoaded', function () {
-    console.log(1);
+})({5:[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
 });
-},{}],3:[function(require,module,exports) {
+exports.injectCustomJs = injectCustomJs;
+function injectCustomJs(jsPath) {
+    console.log(jsPath);
+    return new Promise(function (resolve, reject) {
+        var temp = document.createElement('script');
+        temp.setAttribute('type', 'text/javascript');
+        temp.src = chrome.extension.getURL(jsPath);
+        temp.onload = function () {
+            this.parentNode.removeChild(this);
+            resolve();
+        };
+        document.head.appendChild(temp);
+    });
+}
+},{}],1:[function(require,module,exports) {
+'use strict';
+
+var _util = require('./util');
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+function postMessage(_ref) {
+    var type = _ref.type,
+        data = _ref.data;
+
+    window.postMessage({ type: type, to: 'frontend', from: 'mid', data: data }, '*');
+}
+
+window.addEventListener('message', function (e) {
+    var regExp = /^mingyuan\/(\w*)\/([\w:\d]*)$/;
+    var _e$data = e.data,
+        type = _e$data.type,
+        to = _e$data.to,
+        data = _e$data.data;
+
+    if (to === 'mid' && type && type.match(regExp)) {
+        var m = type.match(regExp);
+        switch (m[1]) {
+            case 'controller':
+                postMessage({ type: 'mingyuan/controller/alive:yes', data: 'test' });
+                break;
+            case 'data':
+                var response = function response(res) {
+                    return postMessage({ type: 'mingyuan/data/' + m[2].replace('req', 'res'), data: res });
+                };
+                fetch.apply(undefined, _toConsumableArray(e.data.data)).then(function (res) {
+                    return res.text();
+                }).then(response, response);
+                break;
+        }
+    }
+});
+postMessage({ type: 'mingyuan/controller/online', data: 'test' });
+},{"./util":5}],24:[function(require,module,exports) {
 
 var global = (1, eval)('this');
 var OldModule = module.bundle.Module;
@@ -97,7 +152,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '53749' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '64280' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
@@ -198,5 +253,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.require, id);
   });
 }
-},{}]},{},[3,1])
-//# sourceMappingURL=/dist/index.map
+},{}]},{},[24,1])
+//# sourceMappingURL=/dist/content_script.map

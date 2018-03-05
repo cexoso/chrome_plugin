@@ -6,10 +6,11 @@
     "content_scripts": [
         {
             "matches": ["<all_urls>"],
-            "js": ["index.js"],
+            "js": ["content_script.js"],
             "run_at": "document_start"
         }
     ],
+    "web_accessible_resources": ["inject_script.js"],
     "icons": {
         "16": "calculator-16.png",
         "128": "calculator-128.png"
