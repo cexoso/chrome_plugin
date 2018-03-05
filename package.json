@@ -4,16 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "run-p -l dev:*",
-    "dev:content": "parcel watch src/content_script.js",
-    "dev:inject": "parcel watch src/inject_script.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "npm-run-all": "^4.1.2",
-    "parcel-bundler": "^1.6.2"
-  }
+  "license": "ISC"
 }
