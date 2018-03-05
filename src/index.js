@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-  setTimeout(()=>{
-    alert(111)
-  },1000)
+    console.log(1);
+    
 });

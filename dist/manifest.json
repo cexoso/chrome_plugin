@@ -1,0 +1,17 @@
+{
+    "name": "调试帮助平台",
+    "version": "0.1",
+    "description": "帮助网页进行跨域请求。实现类型postman的功能，但是将UI界面交给网页展示",
+    "manifest_version": 2,
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["index.js"],
+            "run_at": "document_start"
+        }
+    ],
+    "icons": {
+        "16": "calculator-16.png",
+        "128": "calculator-128.png"
+    }
+}
