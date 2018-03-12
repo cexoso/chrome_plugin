@@ -18,7 +18,7 @@
 
 # data
 数据协议分为:
-- `req:${id}`: 当mid收到了此消息，会使用`fetch(...paramers)`调用传递过来的`paramers`,并且将返回的结果通过`res:${id}`返回。
+- `req:${id}`: 当mid收到了此消息，会使用`fetch(...paramers)`调用传递过来的`paramers`,并且将返回的结果通过`res:${id}`返回。
 - `res:${id}`: `req:${id}`的返回值
 
 *ps:id为请求的唯一标志符*
